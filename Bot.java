@@ -4,7 +4,7 @@ import java.util.*;
 public class Bot{
 	Hand h;
 
-	public Dealer(Hand h){
+	public Bot(Hand h){
 		this.h = h;
 	}
 
