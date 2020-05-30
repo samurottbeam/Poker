@@ -25,9 +25,14 @@ public class Hand{
 		}
 	}
 	//swap function for five-card draw
-	public void swapCards(int cardNum){
-		deck.backIntoDeck(h.get(cardNum-1));
-		h.set(cardNum-1, deck.drawCard());
+	public void swapCards(Scanner console){
+		int cardNum = console.nextInt();
+		while(cardNum != 0){
+			deck.backIntoDeck(h.get(cardNum-1));
+			h.set(cardNum-1, deck.drawCard());
+			cardNum = console.nextInt();
+		}
+		
 	}
 	//how each hand is printed
 	public void printHand(DrawingPanel dp, Graphics g){		

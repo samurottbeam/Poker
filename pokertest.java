@@ -54,24 +54,14 @@ public class pokertest{
 		refreshBoard(panel,g,person,dealer);
 		person.printPlayerHand(panel,g);
 		//swaps the cards
-		while(wantSwap == true){
-			System.out.println("Do you want to continue swapping? (Y/N)");
-			String s = console.next();
-			if(s.equals("Y")){
-				wantSwap = true;
-			}
-			else{
-				break;
-			}
-			System.out.println("Which card would you like to swap?");
-			swapNum = console.nextInt();
-			person.getHand().swapCards(swapNum);
-		}
+		System.out.println("Which cards would you like to swap?");
+		person.getHand().swapCards(console);
+		//refresh board
 		refreshBoard(panel,g,person,dealer);
 		person.printPlayerHand(panel,g);
-		System.out.println("Switch turns.");
-		refreshBoard(panel,g,dealer,person);
-		dealer.printPlayerHand(panel,g);
+		// System.out.println("Switch turns.");
+		// refreshBoard(panel,g,dealer,person);
+		// dealer.printPlayerHand(panel,g);
 		
 
 	}
