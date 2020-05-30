@@ -7,5 +7,9 @@ public class Bot{
 	public Bot(Hand h){
 		this.h = h;
 	}
+	
+	public void Decision(){
+		
+	}
 
 }
