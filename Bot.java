@@ -1,7 +1,7 @@
 import java.awt.*;
 import java.util.*;	
 
-public class Dealer{
+public class Bot{
 	Hand h;
 
 	public Dealer(Hand h){
