@@ -2,12 +2,16 @@ import java.awt.*;
 import java.util.*;	
 
 public class Bot{
-	Hand h;
+	private Hand h;
 
 	public Bot(Hand h){
 		this.h = h;
 	}
 	
+	public Hand getHand(){
+		
+	}
+		
 	public void Decision(){
 		
 	}
