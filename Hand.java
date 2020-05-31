@@ -276,5 +276,33 @@ public class Hand{
 		return output;
 
 	}
+	
+	public int isExternalPair(int removed){
+		for(int i = 0; i<4; i++){
+			if(h.get(i).getRankValue() == h.get(i+1).getRankValue() && h.get(i).getRankValue() != removed){
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	public boolean isFullHouse(){
+		if(isExternalPair(h.get(isTriple()).getRankValue()) > -1){
+			return true;
+		}
+		return false;
+	}
+
+	public int isTwoPair(){
+		if(isExternalPair(h.get(isOnePair()).getRankValue()) > -1){
+			for(int i = 0; i<5;i++){
+				if(h.get(i).getRankValue() != h.get(isOnePair()).getRankValue() && h.get(i).getRankValue() != h.get(isExternalPair(h.get(isOnePair()).getRankValue())).getRankValue()){
+					return i;
+				}
+			}
+		}
+		return -1;
+	}
+
 
 }
