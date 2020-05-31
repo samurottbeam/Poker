@@ -3,6 +3,14 @@ import java.util.*;
 public class Hand{
 	private ArrayList<Card> h = new ArrayList<Card>();
 	private Deck deck;
+
+				//constructor for testing
+				public Hand(Deck d, ArrayList<Card> h){
+					this.deck = d;
+					this.h = h;
+				}
+
+
 	//constructor
 	public Hand(Deck d){
 		deck = d;
@@ -112,26 +120,11 @@ public class Hand{
 	}
 
 	public boolean isFourOfKind(){
-		int firstVal = h.get(0).getRankValue();
-		int secondVal = h.get(1).getRankValue();
-		boolean flag = true;
-		//check first four
-		for (int i = 1; i < 3; i++) {
-			if (h.get(i).getRankValue() != firstVal) {
-				flag = false;
-				break;
-			}
-		}
-		//check second four if first four weren't same
-		if (flag == false) {
-			for (int i = 2; i < 4; i++) {
-				if (h.get(i).getRankValue() != secondVal) {
-					return false;
-				}
-			}
+		if (h.get(0).getRankValue() == h.get(3).getRankValue() || h.get(1).getRankValue() == h.get(4).getRankValue()) {
 			return true;
+		} else {
+			return false;
 		}
-		return flag;
 	}
 
 	//returns the index of the first occurrence of the triplet
@@ -158,6 +151,7 @@ public class Hand{
 		return -1;
 	}
 
+	/*
 	//returns True hand wins, False if other hand wins
 	public boolean versus(Hand other){
 		if(this.handValue() > other.handValue()){
@@ -165,12 +159,12 @@ public class Hand{
 		} else if (this.handValue() < other.handValue()){
 			return false;
 		} else {
-			/*
-			have to deal with kicker
-			*/
+		
 		}
 	}
+	*/
 
+	/*
 	public int isAlmostStraight(){
 		int reject = -1;
 		int counter = 0;
@@ -208,6 +202,7 @@ public class Hand{
 			}
 		}
 	}
+	*/
 
 	//used for close to full house or four of a kind
 	public int moreThanTriple(){ 
@@ -287,14 +282,14 @@ public class Hand{
 	}
 
 	public boolean isFullHouse(){
-		if(isExternalPair(h.get(isTriple()).getRankValue()) > -1){
+		if(isTriple() > -1 && isExternalPair(h.get(isTriple()).getRankValue()) > -1){
 			return true;
 		}
 		return false;
 	}
 
 	public int isTwoPair(){
-		if(isExternalPair(h.get(isOnePair()).getRankValue()) > -1){
+		if(isOnePair() > -1 && isExternalPair(h.get(isOnePair()).getRankValue()) > -1){
 			for(int i = 0; i<5;i++){
 				if(h.get(i).getRankValue() != h.get(isOnePair()).getRankValue() && h.get(i).getRankValue() != h.get(isExternalPair(h.get(isOnePair()).getRankValue())).getRankValue()){
 					return i;
