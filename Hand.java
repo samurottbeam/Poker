@@ -49,7 +49,7 @@ public class Hand{
 			g.drawString(num, 40+100*(i-2),595);
 			g.drawRect(100*(i-2), 600, 90, 150);
 			String cardstring = "" + rank +" " + suit;
-			if(suit.equals("♦") || suit.equals("♥")){
+			if(suit.equals("\u2666") || suit.equals("\u2665")){
 				g.setColor(Color.red);
 			}
 			else{
