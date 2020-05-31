@@ -134,6 +134,15 @@ public class Hand{
 		return flag;
 	}
 
+	public int isDouble(){
+		for(int i = 0; i<4; i++){
+			if(h.get(i).getRankValue() == h.get(i+1).getRankValue()){
+				return i;
+			}
+		}
+		return -1;
+	}
+
 	//returns True hand wins, False if other hand wins
 	public boolean versus(Hand other){
 		if(this.handValue() > other.handValue()){
@@ -185,14 +194,72 @@ public class Hand{
 		}
 	}
 
-	public int moreThanTriple(){
-		if(isTriple()){
-			int min = 0;
-			int triple = 0;
+	//used for close to full house or four of a kind
+	public int moreThanTriple(){ 
+		if(isTriple() >= 0){
+			int min = 4;
+			for(int i = 0; i<5;i++){
+				if(h.get(i).getRankValue() < h.get(min).getRankValue() && h.get(i).getRankValue() != isTriple()){
+					min = i;
+				}
+			}
+			return min;
 
 		}
 		else{
 			return -1;
 		}
 	}
+
+	public ArrayList<Integer> almostFlush(){
+
+		ArrayList<Integer> output = new ArrayList<Integer>();
+
+		int count1 = 0;
+		int count2 = 0;
+		int count3 = 0;
+		int count4 = 0;
+		String holder = "";
+		for(Card a : h){
+			if(a.getSuitValue() == 1){
+				count1++;
+			}
+			else if(a.getSuitValue() == 2){
+				count2++;
+			}
+			else if(a.getSuitValue() == 3){
+				count3++;
+			}
+			else if(a.getSuitValue() == 4){
+				count4++;
+			}
+		}
+
+		if(count1 <= 2 && count1 > 0){
+			holder = holder + 1;
+		}
+		if(count2 <= 2 && count2 > 0){
+			holder = holder + 2;
+		}
+		if(count3 <= 2 && count3 > 0){
+			holder = holder + 3;
+		}
+		if(count4 <= 2 && count4 > 0){
+			holder = holder + 4;
+		}
+
+		if(holder.length() > 2){
+			return output;
+		}
+
+		for(int i = 0; i<5; i++){
+			if(h.get(i).getSuitValue() == Character.getNumericValue(holder.charAt(0)) || h.get(i).getSuitValue() == Character.getNumericValue(holder.charAt(holder.length()-1))){
+				output.add(i);
+			}
+		}
+
+		return output;
+
+	}
+
 }
