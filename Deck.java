@@ -5,13 +5,17 @@ public class Deck{
 	//array for ranks and suits
 	private String[] ranks = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
 	private String[] suits = {"♣","♦","♥","♠"};
+	private int[] suitValues = {1,2,3,4};
+	private int[] rankValues = {13,1,2,3,4,5,6,7,8,9,10,11,12};
 
 	//fills up the deck, remainder for rank, division for suit
 	public void fillDeck(){
 		for(int i = 0; i < 51; i++){
 			String rank = ranks[i%13];
 			String suit = suits[i/13];
-			Card c = new Card(rank,suit);
+			int suitValue = suitValues[i/13];
+			int rankValue = rankValues[i%13];
+			Card c = new Card(rank, suit, suitValue, rankValue);
 			deck.add(c);
 		}
 	}
