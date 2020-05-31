@@ -1,12 +1,14 @@
 import java.awt.*;
 import java.util.*;	
 
-public class Bot{
+public class Bot extends Player{
 	private Hand h;
+	private int money;
 
-	public Bot(Hand h){
-		this.h = h;
+	public Bot(String name, Hand h){
+		super(name, h);
 	}
+
 	
 	public Hand getHand(){
 		return h;
