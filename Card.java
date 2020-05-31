@@ -7,6 +7,12 @@ public class Card implements Comparable<Card>{
 	private int suitValue;
 	private int rankValue;
 
+					//constructor for testing
+					public Card(int suitValue, int rankValue){
+						this.suitValue = suitValue;
+						this.rankValue = rankValue;
+					}
+
 	//constructor
 	public Card(String rank, String suit, int suitValue, int rankValue){
 		this.rank = rank;
