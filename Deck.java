@@ -4,7 +4,7 @@ public class Deck{
 	public ArrayList<Card> deck = new ArrayList<Card>();
 	//array for ranks and suits
 	private String[] ranks = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
-	private String[] suits = {"♣","♦","♥","♠"};
+	private String[] suits = {"\u2663","\u2666","\u2665","\u2660"};
 	private int[] suitValues = {1,2,3,4};
 	private int[] rankValues = {14,2,3,4,5,6,7,8,9,10,11,12,13};
 
