@@ -25,14 +25,10 @@ public class Hand{
 		}
 	}
 	//swap function for five-card draw
-	public void swapCards(Scanner console){
-		int cardNum = console.nextInt();
-		while(cardNum != 0){
-			deck.backIntoDeck(h.get(cardNum-1));
-			h.set(cardNum-1, deck.drawCard());
-			cardNum = console.nextInt();
-		}
-		
+	public void swapCards(int cardNum){
+		deck.backIntoDeck(h.get(cardNum-1));
+		deck.shuffleDeck();
+		h.set(cardNum-1, deck.drawCard());
 	}
 	//how each hand is printed
 	public void printHand(DrawingPanel dp, Graphics g){		
@@ -53,7 +49,7 @@ public class Hand{
 			g.drawString(cardstring, 100*(i-1)-45,615);
 		}
 	}
-	
+
 	public String toString(){
 		String out = "";
 		for(Card a : h){
@@ -78,11 +74,11 @@ public class Hand{
 			return 6;
 		} else if (isStraight()){
 			return 5;
-		} else if (isTriple()){
+		} else if (isTriple()){	 //number that is
 			return 4;
-		} else if (isTwoPair()){
+		} else if (isTwoPair()){ //number that is not
 			return 3;
-		} else if (isOnePair()){
+		} else if (isOnePair()){ //number that is 
 			return 2;
 		} else { //high card
 			return 1;
@@ -148,6 +144,55 @@ public class Hand{
 			/*
 			have to deal with kicker
 			*/
+		}
+	}
+
+	public int isAlmostStraight(){
+		int reject = -1;
+		int counter = 0;
+		for(int i = 1; i < 6; i++){
+			if(h.get(4).getRankValue() == 14 && i == 1){
+				counter++;
+			} 
+			else if(h.get(i).getRankValue() == i){
+				counter++;
+			}
+			else{
+				reject = i;
+			}
+		}
+
+		if(counter == 4){
+			return reject;
+		}
+
+		for(int i = 2; i <=10 ; i++){
+			int count = 0;
+			for(int j = 0; j < 5; j++){
+				if(h.get(j).getRankValue() == i+j){
+					count++;
+				}
+				else{
+					reject = j;
+				}
+			}
+			if(count == 4){
+				return reject;
+			}
+			else{
+				return -1;
+			}
+		}
+	}
+
+	public int moreThanTriple(){
+		if(isTriple()){
+			int min = 0;
+			int triple = 0;
+
+		}
+		else{
+			return -1;
 		}
 	}
 }
