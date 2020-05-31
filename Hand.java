@@ -53,4 +53,16 @@ public class Hand{
 			g.drawString(cardstring, 100*(i-1)-45,615);
 		}
 	}
+	
+	public String toString(){
+		String out = "";
+		for(Card a : h){
+			out = out + a.getRank() + ", " + a.getSuitValue() + "\n";
+		}
+		return out;
+	}
+
+	public void organizeHand(){
+		Collections.sort(h);
+	}
 }
