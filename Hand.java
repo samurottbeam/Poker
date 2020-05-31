@@ -36,7 +36,7 @@ public class Hand{
 	}
 	//swap function for five-card draw
 	public void swapCards(int cardNum){
-		deck.backIntoDeck(h.get(cardNum-1));
+		deck.backIntoDeck(h.remove(cardNum-1));
 		h.set(cardNum-1, deck.drawCard());
 	}
 	//how each hand is printed
