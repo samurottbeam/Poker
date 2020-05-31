@@ -3,11 +3,13 @@ import java.util.*;
 public class Hand{
 	private ArrayList<Card> h = new ArrayList<Card>();
 	private Deck deck;
+	private double handValue;
 
 				//constructor for testing
 				public Hand(Deck d, ArrayList<Card> h){
 					this.deck = d;
 					this.h = h;
+					this.handValue = this.handValue();
 				}
 
 
@@ -69,26 +71,46 @@ public class Hand{
 		Collections.sort(h);
 	}
 
-	//returns int representing value of the hand: 1 for high card, 9 for straight flush
-	public int handValue (){
+	//returns double representing value of the hand: 1 for high card, 9 for straight flush
+	public double handValue(){
+		this.organizeHand();
+
 		if (isStraight() && isFlush()) {
-			return 9;
-		} else if (isFourOfKind()){
-			return 8;
+			return 9 + 0.1*h.get(4).getRankValue();
+		} else if (isFourOfKind() > -1){
+			return 8 + 0.1*h.get(3).getRankValue() + 0.01*h.get(isFourOfKind()).getRankValue();
 		} else if (isFullHouse()){
-			return 7;
+			return 7 + 0.1*h.get(isTriple()).getRankValue() + 0.01*h.get(isExternalPair(h.get(isTriple()).getRankValue())).getRankValue();
 		} else if (isFlush()){
-			return 6;
+			return 6 + 0.1*h.get(4).getRankValue() + 0.01*h.get(3).getRankValue() + 0.001*h.get(2).getRankValue() + 0.0001*h.get(1).getRankValue() + 0.00001*h.get(0).getRankValue();
 		} else if (isStraight()){
-			return 5;
+			return 5 + 0.1*h.get(4).getRankValue();
 		} else if (isTriple() > -1){	 //number that is
-			return 4;
+			int secondHighest = 0;
+			int tripleNum = h.get(isTriple()).getRankValue();
+			int min = h.get(moreThanTriple()).getRankValue();
+			for (int i = 0; i < 5; i++) {
+				if (h.get(i).getRankValue() != tripleNum && h.get(i).getRankValue() != min) {
+					secondHighest = i;
+					break;
+				}
+			}
+			return 4 + 0.1*tripleNum + 0.01*secondHighest + 0.001*min;
 		} else if (isTwoPair() > -1){ //number that is not
-			return 3;
+			int otherCard = h.get(isTwoPair()).getRankValue();
+			int higherRanking = Math.max(h.get(isOnePair()).getRankValue(), h.get(isExternalPair(h.get(isOnePair()).getRankValue())).getRankValue());
+			int lowerRanking = Math.min(h.get(isOnePair()).getRankValue(), h.get(isExternalPair(h.get(isOnePair()).getRankValue())).getRankValue());
+			return 3 + 0.1*higherRanking + 0.01*lowerRanking + 0.001*otherCard;
 		} else if (isOnePair() > -1){ //number that is 
-			return 2;
+			int pair = h.get(isOnePair()).getRankValue();
+			ArrayList<Integer> otherThree = moreThanOnePair();
+			Collections.sort(otherThree);
+			int highest = otherThree.get(2);
+			int medium = otherThree.get(1);
+			int lowest = otherThree.get(0);
+			return 2 + 0.1*pair + 0.01*highest + 0.001*medium + 0.0001*lowest;
 		} else { //high card
-			return 1;
+			return 1 + 0.1*h.get(4).getRankValue() + 0.01*h.get(3).getRankValue() + 0.001*h.get(2).getRankValue() + 0.0001*h.get(1).getRankValue() + 0.00001*h.get(0).getRankValue();
 		}
 	}
 
@@ -118,12 +140,16 @@ public class Hand{
 		return true;
 	}
 
-	public boolean isFourOfKind(){
-		if (h.get(0).getRankValue() == h.get(3).getRankValue() || h.get(1).getRankValue() == h.get(4).getRankValue()) {
-			return true;
+	//returns index of card that is NOT in the quadruplet, or -1 if hand is not four of kind
+	public int isFourOfKind(){
+		if (h.get(0).getRankValue() == h.get(3).getRankValue()){
+			return 4;
+		} else if (h.get(1).getRankValue() == h.get(4).getRankValue()){
+			return 0;
 		} else {
-			return false;
+			return -1;
 		}
+
 	}
 
 	//returns the index of the first occurrence of the triplet
@@ -150,6 +176,7 @@ public class Hand{
 		return -1;
 	}
 
+	//returns index of external pair
 	public int isExternalPair(int removed){
 		for(int i = 0; i<4; i++){
 			if(h.get(i).getRankValue() == h.get(i+1).getRankValue() && h.get(i).getRankValue() != removed){
@@ -177,20 +204,19 @@ public class Hand{
 		return -1;
 	}
 	
-	/*
-	//returns True hand wins, False if other hand wins
-	public boolean versus(Hand other){
+
+	//returns 1 hand wins, -1 if other hand wins, 0 if tie
+	public int versus(Hand other){
 		if(this.handValue() > other.handValue()){
-			return true;
-		} else if (this.handValue() < other.handValue()){
-			return false;
+			return 1;
+		} else if (this.handValue < other.handValue()){
+			return -1;
 		} else {
-		
+			return 0;
 		}
 	}
-	*/
-
 	
+
 	public int isAlmostStraight(){
 		int reject = -1;
 		int counter = 0;
@@ -228,7 +254,7 @@ public class Hand{
 	}
 	
 
-	//used for close to full house or four of a kind
+	//returns index of smaller kicker, used for close to full house or four of a kind
 	public int moreThanTriple(){ 
 		if(isTriple() > -1 && h.get(isTriple()).getRankValue() >= 0){
 			int min = 4;
@@ -296,6 +322,7 @@ public class Hand{
 
 	}
 	
+	//returns size 3 arraylist of integers of the indexes of the other 3 numbers
 	public ArrayList<Integer> moreThanOnePair(){
 		ArrayList<Integer> output = new ArrayList<Integer>();
 		if(isOnePair() > -1){
