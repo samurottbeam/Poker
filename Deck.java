@@ -7,7 +7,7 @@ public class Deck{
 	private String[] suits = {"♣","♦","♥","♠"};
 	private int[] suitValues = {1,2,3,4};
 	private int[] rankValues = {14,2,3,4,5,6,7,8,9,10,11,12,13};
-	
+
 	//fills up the deck, remainder for rank, division for suit
 	public void fillDeck(){
 		for(int i = 0; i < 51; i++){
