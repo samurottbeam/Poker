@@ -297,6 +297,21 @@ public class Hand{
 
 	}
 	
+	public ArrayList<Integer> moreThanOnePair(){
+		ArrayList<Integer> output = new ArrayList<Integer>();
+		if(isOnePair() > -1){
+			for(int i = 0; i < 5; i++){
+				if(h.get(i).getRankValue() != h.get(isOnePair()).getRankValue()){
+					output.add(i);
+				}
+			}
+			return output;
+		}
+		else{
+			return output;
+		}
+	}
+	
 
 
 
