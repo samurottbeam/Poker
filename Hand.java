@@ -35,7 +35,6 @@ public class Hand{
 	//swap function for five-card draw
 	public void swapCards(int cardNum){
 		deck.backIntoDeck(h.get(cardNum-1));
-		deck.shuffleDeck();
 		h.set(cardNum-1, deck.drawCard());
 	}
 	//how each hand is printed
@@ -61,7 +60,7 @@ public class Hand{
 	public String toString(){
 		String out = "";
 		for(Card a : h){
-			out = out + a.getRank() + ", " + a.getSuitValue() + "\n";
+			out = out + a.getSuitValue() + ", " + a.getRankValue() + "\n";
 		}
 		return out;
 	}
@@ -199,11 +198,11 @@ public class Hand{
 			if(h.get(4).getRankValue() == 14 && i == 1){
 				counter++;
 			} 
-			else if(h.get(i).getRankValue() == i){
+			else if(h.get(i-1).getRankValue() == i){
 				counter++;
 			}
 			else{
-				reject = i;
+				reject = i - 1;
 			}
 		}
 
@@ -231,7 +230,7 @@ public class Hand{
 
 	//used for close to full house or four of a kind
 	public int moreThanTriple(){ 
-		if(h.get(isTriple()).getRankValue() >= 0){
+		if(isTriple() > -1 && h.get(isTriple()).getRankValue() >= 0){
 			int min = 4;
 			for(int i = 0; i<5;i++){
 				if(h.get(i).getRankValue() < h.get(min).getRankValue() && h.get(i).getRankValue() != h.get(isTriple()).getRankValue()){
@@ -246,7 +245,7 @@ public class Hand{
 		}
 	}
 
-	public ArrayList<Integer> almostFlush(){
+	public ArrayList<Integer> isAlmostFlush(){
 
 		ArrayList<Integer> output = new ArrayList<Integer>();
 
