@@ -74,11 +74,11 @@ public class Hand{
 			return 6;
 		} else if (isStraight()){
 			return 5;
-		} else if (isTriple()){	 //number that is
+		} else if (isTriple() > -1){	 //number that is
 			return 4;
-		} else if (isTwoPair()){ //number that is not
+		} else if (isTwoPair() > -1){ //number that is not
 			return 3;
-		} else if (isOnePair()){ //number that is 
+		} else if (isOnePair() > -1){ //number that is 
 			return 2;
 		} else { //high card
 			return 1;
@@ -134,7 +134,22 @@ public class Hand{
 		return flag;
 	}
 
-	public int isDouble(){
+	//returns the index of the first occurrence of the triplet
+	public int isTriple(){
+		this.organizeHand();
+		if (h.get(0).getRankValue() == h.get(2).getRankValue()) {
+			return 0;
+		} else if (h.get(1).getRankValue() == h.get(3).getRankValue()){
+			return 1;
+		} else if (h.get(2).getRankValue() == h.get(4).getRankValue()){
+			return 2;
+		} else {
+			return -1;
+		}
+	}
+	
+	//returns the index of the first occurance of the pair
+	public int isOnePair(){
 		for(int i = 0; i<4; i++){
 			if(h.get(i).getRankValue() == h.get(i+1).getRankValue()){
 				return i;
