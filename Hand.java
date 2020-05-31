@@ -151,6 +151,33 @@ public class Hand{
 		return -1;
 	}
 
+	public int isExternalPair(int removed){
+		for(int i = 0; i<4; i++){
+			if(h.get(i).getRankValue() == h.get(i+1).getRankValue() && h.get(i).getRankValue() != removed){
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	public boolean isFullHouse(){
+		if(isTriple() > -1 && isExternalPair(h.get(isTriple()).getRankValue()) > -1){
+			return true;
+		}
+		return false;
+	}
+
+	public int isTwoPair(){
+		if(isOnePair() > -1 && isExternalPair(h.get(isOnePair()).getRankValue()) > -1){
+			for(int i = 0; i<5;i++){
+				if(h.get(i).getRankValue() != h.get(isOnePair()).getRankValue() && h.get(i).getRankValue() != h.get(isExternalPair(h.get(isOnePair()).getRankValue())).getRankValue()){
+					return i;
+				}
+			}
+		}
+		return -1;
+	}
+	
 	/*
 	//returns True hand wins, False if other hand wins
 	public boolean versus(Hand other){
@@ -164,7 +191,7 @@ public class Hand{
 	}
 	*/
 
-	/*
+	
 	public int isAlmostStraight(){
 		int reject = -1;
 		int counter = 0;
@@ -197,12 +224,10 @@ public class Hand{
 			if(count == 4){
 				return reject;
 			}
-			else{
-				return -1;
-			}
 		}
+		return -1;
 	}
-	*/
+	
 
 	//used for close to full house or four of a kind
 	public int moreThanTriple(){ 
@@ -272,32 +297,7 @@ public class Hand{
 
 	}
 	
-	public int isExternalPair(int removed){
-		for(int i = 0; i<4; i++){
-			if(h.get(i).getRankValue() == h.get(i+1).getRankValue() && h.get(i).getRankValue() != removed){
-				return i;
-			}
-		}
-		return -1;
-	}
 
-	public boolean isFullHouse(){
-		if(isTriple() > -1 && isExternalPair(h.get(isTriple()).getRankValue()) > -1){
-			return true;
-		}
-		return false;
-	}
-
-	public int isTwoPair(){
-		if(isOnePair() > -1 && isExternalPair(h.get(isOnePair()).getRankValue()) > -1){
-			for(int i = 0; i<5;i++){
-				if(h.get(i).getRankValue() != h.get(isOnePair()).getRankValue() && h.get(i).getRankValue() != h.get(isExternalPair(h.get(isOnePair()).getRankValue())).getRankValue()){
-					return i;
-				}
-			}
-		}
-		return -1;
-	}
 
 
 }
