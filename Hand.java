@@ -196,10 +196,10 @@ public class Hand{
 
 	//used for close to full house or four of a kind
 	public int moreThanTriple(){ 
-		if(isTriple() >= 0){
+		if(h.get(isTriple()).getRankValue() >= 0){
 			int min = 4;
 			for(int i = 0; i<5;i++){
-				if(h.get(i).getRankValue() < h.get(min).getRankValue() && h.get(i).getRankValue() != isTriple()){
+				if(h.get(i).getRankValue() < h.get(min).getRankValue() && h.get(i).getRankValue() != h.get(isTriple()).getRankValue()){
 					min = i;
 				}
 			}
