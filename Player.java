@@ -5,12 +5,15 @@ public class Player{
 	private String name;
 	Hand h;
 	private int money;
+	private Boolean isCurrentTurn;
+
 
 	//default constructor function set at $100000
-	public Player(String name, Hand h){
+	public Player(String name, Hand h, Boolean isCurrentTurn){
 		this.name = name;
 		this.h = h;
 		money = 100000;
+		this.isCurrentTurn = isCurrentTurn;
 	}
 
 	//constructor if amount of money to start with is not $100000
@@ -35,6 +38,14 @@ public class Player{
 	
 	public Hand getHand(){
 		return h;
+	}
+	
+	public void setCurrentTurn(Boolean b){
+		isCurrentTurn = b;
+	}
+
+	public Boolean getCurrentTurn(){
+		return isCurrentTurn;
 	}
 
 	public void changeMoney(int change){
