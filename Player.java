@@ -1,5 +1,9 @@
-import java.util.*;
 import java.awt.*;
+import java.util.*;
+import javax.imageio.*;
+import java.io.*;
+import javax.swing.*;
+import java.awt.image.*;
 
 public class Player implements Comparable<Player>{
 	private String name;
@@ -26,7 +30,7 @@ public class Player implements Comparable<Player>{
 	}
 
 	//prints hand
-	public void printPlayerHand(DrawingPanel d, Graphics g){
+	public void printPlayerHand(DrawingPanel d, Graphics g) throws IOException{
 		h.printHand(d,g);
 	}
 
@@ -52,6 +56,10 @@ public class Player implements Comparable<Player>{
 
 	public Boolean returnIsFolded(){
 		return isFolded;
+	}
+
+	public void unfold(){
+		isFolded = false;
 	}
 
 	public int getPlayerBet(){

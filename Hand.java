@@ -1,5 +1,9 @@
 import java.awt.*;
 import java.util.*;
+import javax.imageio.*;
+import java.io.*;
+import javax.swing.*;
+import java.awt.image.*;
 public class Hand{
 	public ArrayList<Card> h = new ArrayList<Card>();
 	private Deck deck;
@@ -27,6 +31,7 @@ public class Hand{
 		for(int i =0; i < 5; i++){
 			h.add(deck.drawCard());
 		}
+		this.organizeHand();
 	}
 	//adds hand back into the deck
 	public void returnHand(){
@@ -41,41 +46,357 @@ public class Hand{
 		h.set(cardNum-1, deck.drawCard());
 	}
 	//how each hand is printed
-	public void printHand(DrawingPanel dp, Graphics g){		
+	public void printHand(DrawingPanel dp, Graphics g) throws IOException{		
 		for(int i = 2; i < 7; i++){	
 			String num = "" + (i-1);
 			String rank = h.get(i-2).getRank();
 			String suit = h.get(i-2).getSuit();
 			g.setColor(Color.black);
-			g.drawString(num, 40+100*(i-2),595);
-			g.drawRect(100*(i-2), 600, 90, 150);
-			String cardstring = "" + rank +" " + suit;
-			if(suit.equals("\u2666") || suit.equals("\u2665")){
-				g.setColor(Color.red);
+			BufferedImage img = null;
+			if(rank == "A" && suit == "\u2663"){
+				img = ImageIO.read(new File("AC.png"));
 			}
-			else{
-				g.setColor(Color.black);
+			if(rank == "A" && suit == "\u2666"){
+				img = ImageIO.read(new File("AD.png"));
 			}
-			g.drawString(cardstring, 100*(i-1)-45,615);
+			if(rank == "A" && suit == "\u2665"){
+				img = ImageIO.read(new File("AH.png"));
+			}
+			if(rank == "A" && suit == "\u2660"){
+				img = ImageIO.read(new File("AS.png"));
+			}
+			if(rank == "2" && suit == "\u2663"){
+				img = ImageIO.read(new File("2C.png"));
+			}
+			if(rank == "2" && suit == "\u2666"){
+				img = ImageIO.read(new File("2D.png"));
+			}
+			if(rank == "2" && suit == "\u2665"){
+				img = ImageIO.read(new File("2H.png"));
+			}
+			if(rank == "2" && suit == "\u2660"){
+				img = ImageIO.read(new File("2S.png"));
+			}
+			if(rank == "3" && suit == "\u2663"){
+				img = ImageIO.read(new File("3C.png"));
+			}
+			if(rank == "3" && suit == "\u2666"){
+				img = ImageIO.read(new File("3D.png"));
+			}
+			if(rank == "3" && suit == "\u2665"){
+				img = ImageIO.read(new File("3H.png"));
+			}
+			if(rank == "3" && suit == "\u2660"){
+				img = ImageIO.read(new File("3S.png"));
+			}
+			if(rank == "4" && suit == "\u2663"){
+				img = ImageIO.read(new File("4C.png"));
+			}
+			if(rank == "4" && suit == "\u2666"){
+				img = ImageIO.read(new File("4D.png"));
+			}
+			if(rank == "4" && suit == "\u2665"){
+				img = ImageIO.read(new File("4H.png"));
+			}
+			if(rank == "4" && suit == "\u2660"){
+				img = ImageIO.read(new File("4S.png"));
+			}
+			if(rank == "5" && suit == "\u2663"){
+				img = ImageIO.read(new File("5C.png"));
+			}
+			if(rank == "5" && suit == "\u2666"){
+				img = ImageIO.read(new File("5D.png"));
+			}
+			if(rank == "5" && suit == "\u2665"){
+				img = ImageIO.read(new File("5H.png"));
+			}
+			if(rank == "5" && suit == "\u2660"){
+				img = ImageIO.read(new File("5S.png"));
+			}
+			if(rank == "6" && suit == "\u2663"){
+				img = ImageIO.read(new File("6C.png"));
+			}
+			if(rank == "6" && suit == "\u2666"){
+				img = ImageIO.read(new File("6D.png"));
+			}
+			if(rank == "6" && suit == "\u2665"){
+				img = ImageIO.read(new File("6H.png"));
+			}
+			if(rank == "6" && suit == "\u2660"){
+				img = ImageIO.read(new File("6S.png"));
+			}
+			if(rank == "7" && suit == "\u2663"){
+				img = ImageIO.read(new File("7C.png"));
+			}
+			if(rank == "7" && suit == "\u2666"){
+				img = ImageIO.read(new File("7D.png"));
+			}
+			if(rank == "7" && suit == "\u2665"){
+				img = ImageIO.read(new File("7H.png"));
+			}
+			if(rank == "7" && suit == "\u2660"){
+				img = ImageIO.read(new File("7S.png"));
+			}
+			if(rank == "8" && suit == "\u2663"){
+				img = ImageIO.read(new File("8C.png"));
+			}
+			if(rank == "8" && suit == "\u2666"){
+				img = ImageIO.read(new File("8D.png"));
+			}
+			if(rank == "8" && suit == "\u2665"){
+				img = ImageIO.read(new File("8H.png"));
+			}
+			if(rank == "8" && suit == "\u2660"){
+				img = ImageIO.read(new File("8S.png"));
+			}
+			if(rank == "9" && suit == "\u2663"){
+				img = ImageIO.read(new File("9C.png"));
+			}	
+			if(rank == "9" && suit == "\u2666"){
+				img = ImageIO.read(new File("9D.png"));
+			}
+			if(rank == "9" && suit == "\u2665"){
+				img = ImageIO.read(new File("9H.png"));
+			}
+			if(rank == "9" && suit == "\u2660"){
+				img = ImageIO.read(new File("9S.png"));
+			}
+			if(rank == "10" && suit == "\u2663"){
+				img = ImageIO.read(new File("10C.png"));
+			}
+			if(rank == "10" && suit == "\u2666"){
+				img = ImageIO.read(new File("10D.png"));
+			}
+			if(rank == "10" && suit == "\u2665"){
+				img = ImageIO.read(new File("10H.png"));
+			}
+			if(rank == "10" && suit == "\u2660"){
+				img = ImageIO.read(new File("10S.png"));
+			}
+			if(rank == "J" && suit == "\u2663"){
+				img = ImageIO.read(new File("JC.png"));
+			}
+			if(rank == "J" && suit == "\u2666"){
+				img = ImageIO.read(new File("JD.png"));
+			}
+			if(rank == "J" && suit == "\u2665"){
+				img = ImageIO.read(new File("JH.png"));
+			}
+			if(rank == "J" && suit == "\u2660"){
+				img = ImageIO.read(new File("JS.png"));
+			}
+			if(rank == "Q" && suit == "\u2663"){
+				img = ImageIO.read(new File("QC.png"));
+			}
+			if(rank == "Q" && suit == "\u2666"){
+				img = ImageIO.read(new File("QD.png"));
+			}
+			if(rank == "Q" && suit == "\u2665"){
+				img = ImageIO.read(new File("QH.png"));
+			}
+			if(rank == "Q" && suit == "\u2660"){
+				img = ImageIO.read(new File("QS.png"));
+			}
+			if(rank == "K" && suit == "\u2663"){
+				img = ImageIO.read(new File("KC.png"));
+			}
+			if(rank == "K" && suit == "\u2666"){
+				img = ImageIO.read(new File("KD.png"));
+			}
+			if(rank == "K" && suit == "\u2665"){
+				img = ImageIO.read(new File("KH.png"));
+			}
+			if(rank == "K" && suit == "\u2660"){
+				img = ImageIO.read(new File("KS.png"));
+			}
+			g.drawImage(img,100*(i-2), 600, 90, 150,null);
+			// g.drawString(num, 40+100*(i-2),595);
+			// g.drawRect(100*(i-2), 600, 90, 150);
+			// String cardstring = "" + rank +" " + suit;
+			// if(suit.equals("\u2666") || suit.equals("\u2665")){
+			// 	g.setColor(Color.red);
+			// }
+			// else{
+			// 	g.setColor(Color.black);
+			// }
+			// g.drawString(cardstring, 100*(i-1)-45,615);
 		}
 	}
 	
-	public void printWinCon(DrawingPanel dp, Graphics g, int playerNum){
+	public void printWinCon(DrawingPanel dp, Graphics g, int playerNum) throws IOException{
 		for(int i = 2; i < 7; i++){	
 			String num = "" + (i-1);
 			String rank = h.get(i-2).getRank();
 			String suit = h.get(i-2).getSuit();
-			g.setColor(Color.black);
-			g.drawRect(100*(i-2), 25+170*playerNum, 90, 150);
-			String cardstring = "" + rank +" " + suit;
-			if(suit.equals("\u2666") || suit.equals("\u2665")){
-				g.setColor(Color.red);
+			BufferedImage img = null;
+			if(rank == "A" && suit == "\u2663"){
+				img = ImageIO.read(new File("AC.png"));
 			}
-			else{
-				g.setColor(Color.black);
+			if(rank == "A" && suit == "\u2666"){
+				img = ImageIO.read(new File("AD.png"));
 			}
+			if(rank == "A" && suit == "\u2665"){
+				img = ImageIO.read(new File("AH.png"));
+			}
+			if(rank == "A" && suit == "\u2660"){
+				img = ImageIO.read(new File("AS.png"));
+			}
+			if(rank == "2" && suit == "\u2663"){
+				img = ImageIO.read(new File("2C.png"));
+			}
+			if(rank == "2" && suit == "\u2666"){
+				img = ImageIO.read(new File("2D.png"));
+			}
+			if(rank == "2" && suit == "\u2665"){
+				img = ImageIO.read(new File("2H.png"));
+			}
+			if(rank == "2" && suit == "\u2660"){
+				img = ImageIO.read(new File("2S.png"));
+			}
+			if(rank == "3" && suit == "\u2663"){
+				img = ImageIO.read(new File("3C.png"));
+			}
+			if(rank == "3" && suit == "\u2666"){
+				img = ImageIO.read(new File("3D.png"));
+			}
+			if(rank == "3" && suit == "\u2665"){
+				img = ImageIO.read(new File("3H.png"));
+			}
+			if(rank == "3" && suit == "\u2660"){
+				img = ImageIO.read(new File("3S.png"));
+			}
+			if(rank == "4" && suit == "\u2663"){
+				img = ImageIO.read(new File("4C.png"));
+			}
+			if(rank == "4" && suit == "\u2666"){
+				img = ImageIO.read(new File("4D.png"));
+			}
+			if(rank == "4" && suit == "\u2665"){
+				img = ImageIO.read(new File("4H.png"));
+			}
+			if(rank == "4" && suit == "\u2660"){
+				img = ImageIO.read(new File("4S.png"));
+			}
+			if(rank == "5" && suit == "\u2663"){
+				img = ImageIO.read(new File("5C.png"));
+			}
+			if(rank == "5" && suit == "\u2666"){
+				img = ImageIO.read(new File("5D.png"));
+			}
+			if(rank == "5" && suit == "\u2665"){
+				img = ImageIO.read(new File("5H.png"));
+			}
+			if(rank == "5" && suit == "\u2660"){
+				img = ImageIO.read(new File("5S.png"));
+			}
+			if(rank == "6" && suit == "\u2663"){
+				img = ImageIO.read(new File("6C.png"));
+			}
+			if(rank == "6" && suit == "\u2666"){
+				img = ImageIO.read(new File("6D.png"));
+			}
+			if(rank == "6" && suit == "\u2665"){
+				img = ImageIO.read(new File("6H.png"));
+			}
+			if(rank == "6" && suit == "\u2660"){
+				img = ImageIO.read(new File("6S.png"));
+			}
+			if(rank == "7" && suit == "\u2663"){
+				img = ImageIO.read(new File("7C.png"));
+			}
+			if(rank == "7" && suit == "\u2666"){
+				img = ImageIO.read(new File("7D.png"));
+			}
+			if(rank == "7" && suit == "\u2665"){
+				img = ImageIO.read(new File("7H.png"));
+			}
+			if(rank == "7" && suit == "\u2660"){
+				img = ImageIO.read(new File("7S.png"));
+			}
+			if(rank == "8" && suit == "\u2663"){
+				img = ImageIO.read(new File("8C.png"));
+			}
+			if(rank == "8" && suit == "\u2666"){
+				img = ImageIO.read(new File("8D.png"));
+			}
+			if(rank == "8" && suit == "\u2665"){
+				img = ImageIO.read(new File("8H.png"));
+			}
+			if(rank == "8" && suit == "\u2660"){
+				img = ImageIO.read(new File("8S.png"));
+			}
+			if(rank == "9" && suit == "\u2663"){
+				img = ImageIO.read(new File("9C.png"));
+			}	
+			if(rank == "9" && suit == "\u2666"){
+				img = ImageIO.read(new File("9D.png"));
+			}
+			if(rank == "9" && suit == "\u2665"){
+				img = ImageIO.read(new File("9H.png"));
+			}
+			if(rank == "9" && suit == "\u2660"){
+				img = ImageIO.read(new File("9S.png"));
+			}
+			if(rank == "10" && suit == "\u2663"){
+				img = ImageIO.read(new File("10C.png"));
+			}
+			if(rank == "10" && suit == "\u2666"){
+				img = ImageIO.read(new File("10D.png"));
+			}
+			if(rank == "10" && suit == "\u2665"){
+				img = ImageIO.read(new File("10H.png"));
+			}
+			if(rank == "10" && suit == "\u2660"){
+				img = ImageIO.read(new File("10S.png"));
+			}
+			if(rank == "J" && suit == "\u2663"){
+				img = ImageIO.read(new File("JC.png"));
+			}
+			if(rank == "J" && suit == "\u2666"){
+				img = ImageIO.read(new File("JD.png"));
+			}
+			if(rank == "J" && suit == "\u2665"){
+				img = ImageIO.read(new File("JH.png"));
+			}
+			if(rank == "J" && suit == "\u2660"){
+				img = ImageIO.read(new File("JS.png"));
+			}
+			if(rank == "Q" && suit == "\u2663"){
+				img = ImageIO.read(new File("QC.png"));
+			}
+			if(rank == "Q" && suit == "\u2666"){
+				img = ImageIO.read(new File("QD.png"));
+			}
+			if(rank == "Q" && suit == "\u2665"){
+				img = ImageIO.read(new File("QH.png"));
+			}
+			if(rank == "Q" && suit == "\u2660"){
+				img = ImageIO.read(new File("QS.png"));
+			}
+			if(rank == "K" && suit == "\u2663"){
+				img = ImageIO.read(new File("KC.png"));
+			}
+			if(rank == "K" && suit == "\u2666"){
+				img = ImageIO.read(new File("KD.png"));
+			}
+			if(rank == "K" && suit == "\u2665"){
+				img = ImageIO.read(new File("KH.png"));
+			}
+			if(rank == "K" && suit == "\u2660"){
+				img = ImageIO.read(new File("KS.png"));
+			}
+			g.drawImage(img,100*(i-2), 25+170*playerNum, 90, 150,null);
+			// g.setColor(Color.black);
+			// g.drawRect(100*(i-2), 25+170*playerNum, 90, 150);
+			// String cardstring = "" + rank +" " + suit;
+			// if(suit.equals("\u2666") || suit.equals("\u2665")){
+			// 	g.setColor(Color.red);
+			// }
+			// else{
+			// 	g.setColor(Color.black);
+			// }
 
-			g.drawString(cardstring, 100*(i-1)-45,40+170*(playerNum));
+			// g.drawString(cardstring, 100*(i-1)-45,40+170*(playerNum));
 		}	
 	}
 
