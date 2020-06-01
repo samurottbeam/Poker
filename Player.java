@@ -5,7 +5,7 @@ public class Player{
 	private String name;
 	Hand h;
 	private int money;
-	private Boolean isCurrentTurn;
+	public Boolean isCurrentTurn;
 
 
 	//default constructor function set at $100000
