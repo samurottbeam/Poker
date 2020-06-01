@@ -12,7 +12,28 @@ public class pokertest{
 	might want to replace p2 with a dealer class, since dealer has to run an AI to check if it works	
 	*/
 	public static void aiBet(int confidenceLevel, Pot casinoPot, Bot b, int round){
-
+		if(round == 1){
+			if(confidenceLevel == 2 || confidenceLevel == 1){
+				casinoPot.Call(b);
+			}
+			else if(b.getMoney() <= 0){
+				b.fold();
+			}
+			else{
+				casinoPot.Raise(b, 1000);
+			}
+		}
+		else{
+			if(confidenceLevel == 1 || b.getMoney() <= 0){
+				b.fold();
+			}
+			else if(confidenceLevel == 2){
+				casinoPot.Call(b);
+			}
+			else{
+				casinoPot.Raise(b, 1000);
+			}
+		}
 	}
 	public static void userBet(Scanner console, Pot casinoPot, Player p){
 		System.out.println("What would you like to do? (R/C/F)");
@@ -128,70 +149,162 @@ public class pokertest{
 			refreshBoard(panel,g,player1,currentPhase, casinoPot);
 			player1.printPlayerHand(panel,g);
 			userBet(console, casinoPot, player1);
+			casinoPot.Call(dealer);
+			casinoPot.Call(player2);
+			casinoPot.Call(player3);
 			refreshBoard(panel,g,player1,currentPhase, casinoPot);
 			player1.printPlayerHand(panel,g);
 
 			//swaps the cards
-		
-			System.out.println("Which cards would you like to swap?");
-			int cardNum = console.nextInt();
-			while(cardNum != 0){
-				player1.getHand().swapCards(cardNum);
-				while(swapIndex.contains(cardNum)){
-					cardNum = console.nextInt();
+			if(player1.returnIsFolded() == false){
+				System.out.println("Which cards would you like to swap?");
+				int cardNum = console.nextInt();
+				while(cardNum != 0){
+					player1.getHand().swapCards(cardNum);
+					while(swapIndex.contains(cardNum)){
+						cardNum = console.nextInt();
+					}
+					swapIndex.add(cardNum);
 				}
-				swapIndex.add(cardNum);
 			}
+			
 			
 			//refresh board
 			refreshBoard(panel,g,player1,currentPhase,casinoPot);
 			player1.printPlayerHand(panel,g);
-			Thread.sleep(2000);
+			Thread.sleep(1000);
 			System.out.println("Dealer's turn.");
 			refreshBoard(panel,g,dealer,currentPhase,casinoPot);
 			dealer.printPlayerHand(panel,g);
+			int ciOfDealer = dealer.getConfidenceLevel(1);
+			aiBet(ciOfDealer, casinoPot, dealer, 1);
+			casinoPot.Call(player1);
+			casinoPot.Call(player2);
+			casinoPot.Call(player3);
 			System.out.println("Dealer is choosing...");
-			Thread.sleep(3000);
+			Thread.sleep(1000);
 			dealer.decision();
 			System.out.println();
 			refreshBoard(panel,g,dealer,currentPhase,casinoPot);
 			dealer.printPlayerHand(panel,g);
 
-			Thread.sleep(2000);
+			Thread.sleep(1000);
 			System.out.println("Player 2's turn.");
 			refreshBoard(panel,g,player2,currentPhase,casinoPot);
 			player2.printPlayerHand(panel,g);
+			int ciOfp2 = dealer.getConfidenceLevel(1);
+			aiBet(ciOfp2, casinoPot, player2, 1);
+			casinoPot.Call(player1);
+			casinoPot.Call(dealer);
+			casinoPot.Call(player3);			
 			System.out.println("Player 2 is choosing...");
-			Thread.sleep(3000);
+			Thread.sleep(1000);
 			player2.decision();
 			System.out.println();
 			refreshBoard(panel,g,player2,currentPhase,casinoPot);
 			player2.printPlayerHand(panel,g);
 
-			Thread.sleep(2000);
+			Thread.sleep(1000);
 			System.out.println("Player 3's turn.");
 			refreshBoard(panel,g,player3,currentPhase,casinoPot);
 			player3.printPlayerHand(panel,g);
+			casinoPot.Call(player1);
+			int ciOfp3 = dealer.getConfidenceLevel(1);
+			aiBet(ciOfp3, casinoPot, player3, 1);
+			casinoPot.Call(player1);
+			casinoPot.Call(dealer);
+			casinoPot.Call(player2);
 			System.out.println("Player 3 is choosing...");
-			Thread.sleep(3000);
+			Thread.sleep(1000);
 			player3.decision();
 			System.out.println();
 			refreshBoard(panel,g,player3,currentPhase,casinoPot);
 			player3.printPlayerHand(panel,g);
 
 			currentPhase = "Raise/Call/Fold, Post-Swap";
-			userBet(console, casinoPot, player1);
+			if(player1.returnIsFolded() == false){
+				userBet(console, casinoPot, player1);
+				casinoPot.Call(dealer);
+				casinoPot.Call(player2);
+				casinoPot.Call(player3);
+			}
+			
 
-			player1.returnPlayerHand();
-			dealer.returnPlayerHand();
-			player2.returnPlayerHand();
-			player3.returnPlayerHand();
+			System.out.println("Dealer is betting...");
+			Thread.sleep(1000);
+			ciOfDealer = dealer.getConfidenceLevel(2);
+			aiBet(ciOfDealer, casinoPot, dealer, 2);
+			casinoPot.Call(player1);
+			casinoPot.Call(player2);
+			casinoPot.Call(player3);
+			refreshBoard(panel,g,dealer,currentPhase,casinoPot);
+			dealer.printPlayerHand(panel,g);
+			Thread.sleep(1000);
+
+			System.out.println("Player 2 is betting...");
+			Thread.sleep(1000);
+			ciOfp2 = player2.getConfidenceLevel(2);
+			aiBet(ciOfDealer, casinoPot, player2, 2);
+			casinoPot.Call(player1);
+			casinoPot.Call(dealer);
+			casinoPot.Call(player3);
+			refreshBoard(panel,g,player2,currentPhase,casinoPot);
+			player2.printPlayerHand(panel,g);
+			Thread.sleep(1000);
+
+			System.out.println("Player 3 is betting...");
+			Thread.sleep(1000);
+			ciOfp3 = player3.getConfidenceLevel(2);
+			aiBet(ciOfDealer, casinoPot, player3, 2);
+			casinoPot.Call(player1);
+			casinoPot.Call(dealer);
+			casinoPot.Call(player2);
+			refreshBoard(panel,g,player3,currentPhase,casinoPot);
+			player3.printPlayerHand(panel,g);
+			Thread.sleep(1000);
+			
+			ArrayList<Player> playerList = new ArrayList<Player>();
+			if(player1.returnIsFolded() == false){
+				playerList.add(player1);
+			}
+			if(dealer.returnIsFolded() == false){
+				playerList.add(dealer);
+			}
+			if(player2.returnIsFolded() == false){
+				playerList.add(player2);
+			}
+			if(player3.returnIsFolded() == false){
+				playerList.add(player3);
+			}
+
+
+			Collections.sort(playerList);
+			Collections.reverse(playerList);
+
 			winningScreen(panel,g,player1,dealer,player2,player3);
+			if(playerList.isEmpty()){
+				g.drawString("No one wins, house wins all.",0,745);
+			}
+			else{
+				playerList.get(0).changeMoney(casinoPot.getMoney());
+				g.drawString("The winner is: " + playerList.get(0).getName(),0,745);
+			}
+			
+			
+			player1.getHand().returnHand();
+			dealer.getHand().returnHand();
+			player2.getHand().returnHand();
+			player3.getHand().returnHand();
+
 			d.shuffleDeck();
 			
 			System.out.println("Would you like to continue the game? (Y/N)");
 			response = console.next();
 			if(response.equals("N")){
+				System.exit(1);
+			}
+			else if(player1.getMoney() <= 0){
+				System.out.println("You're out of money.");
 				System.exit(1);
 			}
 			else{
@@ -206,8 +319,5 @@ public class pokertest{
 	}
 	public static void main(String[] args) throws IOException, InterruptedException{
 		runGame();
-
-		
-		
 	}
 }

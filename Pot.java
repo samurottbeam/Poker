@@ -16,23 +16,20 @@ public class Pot{
 	}
 
 	public void Call(Player p){
-		p.changeMoney(-currBid);
-		money += currBid;
-	}
-
-	public void Raise(Player p, int bid){
-		if(bid>=currBid){
-			p.changeMoney(-bid);
-			money += bid;
-			currBid = bid;
+		if(p.getMoney() > currBid){
+			p.changeMoney(-(currBid-p.getPlayerBet()));
+			money += currBid-p.getPlayerBet() ;
 		}
 		else{
-			System.out.println("You must bet at least $" + currBid + ".");
+			money+=p.getMoney();
+			p.changeMoney(-p.getMoney());
 		}
 	}
 
-	public void Fold(Player p){
-		//remove from the round
+	public void Raise(Player p1, int bid){
+		p1.changeMoney(-bid);
+		money += bid;
+		currBid += bid;
 	}
 
 	public int getMoney(){

@@ -1,7 +1,7 @@
 import java.util.*;
 import java.awt.*;
 
-public class Player{
+public class Player implements Comparable<Player>{
 	private String name;
 	public Hand h;
 	private int money;
@@ -46,10 +46,6 @@ public class Player{
 		this.h = newH;
 	}
 
-	public void returnPlayerHand(){
-		h.returnHand();
-	}
-
 	public void fold(){
 		isFolded = true;
 	}
@@ -68,6 +64,20 @@ public class Player{
 
 	public void changeMoney(int change){
 		this.money += change;
+	}
+
+	public int compareTo(Player other){
+		if(this.getHand().handValue() == other.getHand().handValue()){
+			return 0;
+		}
+		else{
+			if(this.getHand().handValue() > other.getHand().handValue()){
+				return 1;
+			}
+			else{
+				return -1;
+			}
+		}
 	}
 
 	public int getMoney(){

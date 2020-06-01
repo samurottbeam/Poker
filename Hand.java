@@ -31,15 +31,10 @@ public class Hand{
 	//adds hand back into the deck
 	public void returnHand(){
 		for(int i = 0; i < 5; i++){
-			deck.backIntoDeck(h.remove(i));
+			deck.backIntoDeck(h.remove(0));
 		}
 	}
 
-	public void clearHand(){
-		for(int i = 0; i < 5; i++){
-			h.remove(i);
-		}
-	}
 	//swap function for five-card draw
 	public void swapCards(int cardNum){
 		deck.backIntoDeck(h.get(cardNum-1));

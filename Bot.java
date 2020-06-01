@@ -53,7 +53,7 @@ public class Bot extends Player{
 		} else {
 			if (h.getHandValue() >= 5) {
 				return 3;
-			} else if (h.getHandValue() >= 3){
+			} else if (h.getHandValue() >= 2){
 				return 2;
 			} else {
 				return 1;
