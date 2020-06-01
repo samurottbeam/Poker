@@ -7,6 +7,14 @@ public class Pot{
 		currBid = 0;
 	}
 
+	public void ante(Player p1, Bot dealer, Bot p2, Bot p3){
+		p1.changeMoney(-100);
+		dealer.changeMoney(-100);
+		p2.changeMoney(-100);
+		p3.changeMoney(-100);
+		money+=400;
+	}
+
 	public void Call(Player p){
 		p.changeMoney(-currBid);
 		money += currBid;

@@ -3,8 +3,8 @@ import java.util.*;
 
 public class Bot extends Player{
 
-	public Bot(String name, Hand h, Boolean isCurrentTurn){
-		super(name, h, isCurrentTurn);
+	public Bot(String name, Hand h){
+		super(name, h);
 	}
 
 	
@@ -39,6 +39,7 @@ public class Bot extends Player{
 			}
 		}
 	}
+
 
 	//returns confidence level of AI in their hand
 	public int getConfidenceLevel(int round){

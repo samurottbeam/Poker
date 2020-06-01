@@ -34,6 +34,12 @@ public class Hand{
 			deck.backIntoDeck(h.remove(i));
 		}
 	}
+
+	public void clearHand(){
+		for(int i = 0; i < 5; i++){
+			h.remove(i);
+		}
+	}
 	//swap function for five-card draw
 	public void swapCards(int cardNum){
 		deck.backIntoDeck(h.get(cardNum-1));
@@ -59,13 +65,13 @@ public class Hand{
 		}
 	}
 	
-	public void printWinCon(DrawingPanel dp, Graphics g){
+	public void printWinCon(DrawingPanel dp, Graphics g, int playerNum){
 		for(int i = 2; i < 7; i++){	
 			String num = "" + (i-1);
 			String rank = h.get(i-2).getRank();
 			String suit = h.get(i-2).getSuit();
 			g.setColor(Color.black);
-			g.drawRect(100*(i-2), 25, 90, 150);
+			g.drawRect(100*(i-2), 25+170*playerNum, 90, 150);
 			String cardstring = "" + rank +" " + suit;
 			if(suit.equals("\u2666") || suit.equals("\u2665")){
 				g.setColor(Color.red);
@@ -73,7 +79,8 @@ public class Hand{
 			else{
 				g.setColor(Color.black);
 			}
-			g.drawString(cardstring, 100*(i-1)-45,40);
+
+			g.drawString(cardstring, 100*(i-1)-45,40+170*(playerNum));
 		}	
 	}
 
