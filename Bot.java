@@ -21,23 +21,29 @@ public class Bot extends Player{
 			for (int i = 0; i < h.isAlmostFlush().size(); i++) {
 				h.swapCards(h.isAlmostFlush().get(i) + 1);
 			}
+			System.out.println(h.isAlmostFlush());
 		} else if (h.isAlmostStraight() > -1){
 			//swap last card
 			h.swapCards(h.isAlmostStraight() + 1);
+			System.out.println(h.isAlmostStraight());
 		} else if (h.moreThanTriple() > -1){
 			//swap card at h.moreThanTriple()
 			h.swapCards(h.moreThanTriple() + 1);
+			System.out.println(h.moreThanTriple());
 		} else if (h.moreThanOnePair().size() != 0){
+			System.out.println(h.moreThanOnePair());
 			//swap out other three
 			for (int i = 0; i < 3; i++) {
 				h.swapCards(h.moreThanOnePair().get(i) + 1);
 			}
+
 		} else {
 			//swap everything
 			for (int i = 0; i < 5; i++) {
 				h.swapCards(i + 1);
 			}
 		}
+		h.organizeHand();
 	}
 
 
@@ -45,15 +51,16 @@ public class Bot extends Player{
 	public int getConfidenceLevel(int round){
 		//confidence high (raise), mid (call), low (fold)
 		if (round == 1){
-			if (h.getHandValue() >= 5 || h.isAlmostFlush().size() != 0 || h.isAlmostStraight() > -1 || h.moreThanTriple() > -1) {
+			if (h.handValue() >= 5 || h.isAlmostFlush().size() != 0 || h.isAlmostStraight() > -1 || h.moreThanTriple() > -1) {
 				return 3;
 			} else {
 				return 2;
 			}
 		} else {
-			if (h.getHandValue() >= 5) {
+
+			if (h.handValue() >= 5) {
 				return 3;
-			} else if (h.getHandValue() >= 2){
+			} else if (h.handValue() >= 2){
 				return 2;
 			} else {
 				return 1;
