@@ -96,15 +96,15 @@ public class Hand{
 		this.organizeHand();
 
 		if (isStraight() && isFlush()) {
-			return 9 + 0.1*h.get(4).getRankValue();
+			return 9 + 0.1*(0.1*h.get(4).getRankValue());
 		} else if (isFourOfKind() > -1){
-			return 8 + 0.1*h.get(3).getRankValue() + 0.01*h.get(isFourOfKind()).getRankValue();
+			return 8 + 0.1*(0.1*h.get(3).getRankValue() + 0.01*h.get(isFourOfKind()).getRankValue());
 		} else if (isFullHouse()){
-			return 7 + 0.1*h.get(isTriple()).getRankValue() + 0.01*h.get(isExternalPair(h.get(isTriple()).getRankValue())).getRankValue();
+			return 7 + 0.1*(0.1*h.get(isTriple()).getRankValue() + 0.01*h.get(isExternalPair(h.get(isTriple()).getRankValue())).getRankValue());
 		} else if (isFlush()){
-			return 6 + 0.1*h.get(4).getRankValue() + 0.01*h.get(3).getRankValue() + 0.001*h.get(2).getRankValue() + 0.0001*h.get(1).getRankValue() + 0.00001*h.get(0).getRankValue();
+			return 6 + 0.1*(0.1*h.get(4).getRankValue() + 0.01*h.get(3).getRankValue() + 0.001*h.get(2).getRankValue() + 0.0001*h.get(1).getRankValue() + 0.00001*h.get(0).getRankValue());
 		} else if (isStraight()){
-			return 5 + 0.1*h.get(4).getRankValue();
+			return 5 + 0.1*(0.1*h.get(4).getRankValue());
 		} else if (isTriple() > -1){	 //number that is
 			int secondHighest = 0;
 			int tripleNum = h.get(isTriple()).getRankValue();
@@ -115,12 +115,12 @@ public class Hand{
 					break;
 				}
 			}
-			return 4 + 0.1*tripleNum + 0.01*secondHighest + 0.001*min;
+			return 4 + 0.1*(0.1*tripleNum + 0.01*secondHighest + 0.001*min);
 		} else if (isTwoPair() > -1){ //number that is not
 			int otherCard = h.get(isTwoPair()).getRankValue();
 			int higherRanking = Math.max(h.get(isOnePair()).getRankValue(), h.get(isExternalPair(h.get(isOnePair()).getRankValue())).getRankValue());
 			int lowerRanking = Math.min(h.get(isOnePair()).getRankValue(), h.get(isExternalPair(h.get(isOnePair()).getRankValue())).getRankValue());
-			return 3 + 0.1*higherRanking + 0.01*lowerRanking + 0.001*otherCard;
+			return 3 + 0.1*(0.1*higherRanking + 0.01*lowerRanking + 0.001*otherCard);
 		} else if (isOnePair() > -1){ //number that is 
 			int pair = h.get(isOnePair()).getRankValue();
 			ArrayList<Integer> otherThree = moreThanOnePair();
@@ -128,9 +128,9 @@ public class Hand{
 			int highest = otherThree.get(2);
 			int medium = otherThree.get(1);
 			int lowest = otherThree.get(0);
-			return 2 + 0.1*pair + 0.01*highest + 0.001*medium + 0.0001*lowest;
+			return 2 + 0.1*(0.1*pair + 0.01*highest + 0.001*medium + 0.0001*lowest);
 		} else { //high card
-			return 1 + 0.1*h.get(4).getRankValue() + 0.01*h.get(3).getRankValue() + 0.001*h.get(2).getRankValue() + 0.0001*h.get(1).getRankValue() + 0.00001*h.get(0).getRankValue();
+			return 1 + 0.1*(0.1*h.get(4).getRankValue() + 0.01*h.get(3).getRankValue() + 0.001*h.get(2).getRankValue() + 0.0001*h.get(1).getRankValue() + 0.00001*h.get(0).getRankValue());
 		}
 	}
 
