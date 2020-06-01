@@ -14,23 +14,29 @@ public class pokertest{
 	public static void aiBet(int confidenceLevel, Pot casinoPot, Bot b, int round){
 		if(round == 1){
 			if(confidenceLevel == 2 || confidenceLevel == 1){
+				System.out.println("They called.");
 				casinoPot.Call(b);
 			}
 			else if(b.getMoney() <= 0){
+				System.out.println("They folded.");
 				b.fold();
 			}
 			else{
+				System.out.println("They raised.");
 				casinoPot.Raise(b, 1000);
 			}
 		}
 		else{
 			if(confidenceLevel == 1 || b.getMoney() <= 0){
+				System.out.println("They folded.");
 				b.fold();
 			}
 			else if(confidenceLevel == 2){
+				System.out.println("They called.");
 				casinoPot.Call(b);
 			}
 			else{
+				System.out.println("They raised.");
 				casinoPot.Raise(b, 1000);
 			}
 		}
@@ -176,7 +182,16 @@ public class pokertest{
 			System.out.println("Dealer's turn.");
 			refreshBoard(panel,g,dealer,currentPhase,casinoPot);
 			dealer.printPlayerHand(panel,g);
+
+			//TESTING
+			System.out.println(dealer.getHand());
+			System.out.println(dealer.getHand().handValue());
+
 			int ciOfDealer = dealer.getConfidenceLevel(1);
+
+			//TESTING
+			System.out.println(ciOfDealer + " CONDIFENCE");
+
 			aiBet(ciOfDealer, casinoPot, dealer, 1);
 			casinoPot.Call(player1);
 			casinoPot.Call(player2);
@@ -193,6 +208,14 @@ public class pokertest{
 			refreshBoard(panel,g,player2,currentPhase,casinoPot);
 			player2.printPlayerHand(panel,g);
 			int ciOfp2 = dealer.getConfidenceLevel(1);
+
+			//TESTING
+			System.out.println(player2.getHand());
+			System.out.println(player2.getHand().handValue());
+
+			//TESTING
+			System.out.println(ciOfp2 + " CONDIFENCE");
+
 			aiBet(ciOfp2, casinoPot, player2, 1);
 			casinoPot.Call(player1);
 			casinoPot.Call(dealer);
@@ -208,12 +231,23 @@ public class pokertest{
 			System.out.println("Player 3's turn.");
 			refreshBoard(panel,g,player3,currentPhase,casinoPot);
 			player3.printPlayerHand(panel,g);
+
+
 			casinoPot.Call(player1);
 			int ciOfp3 = dealer.getConfidenceLevel(1);
+
+			//TESTING
+			System.out.println(player3.getHand());
+			System.out.println(player3.getHand().handValue());
+
+			//TESTING
+			System.out.println(ciOfp3 + " CONDIFENCE");
+			
 			aiBet(ciOfp3, casinoPot, player3, 1);
 			casinoPot.Call(player1);
 			casinoPot.Call(dealer);
 			casinoPot.Call(player2);
+
 			System.out.println("Player 3 is choosing...");
 			Thread.sleep(1000);
 			player3.decision();
@@ -233,6 +267,14 @@ public class pokertest{
 			System.out.println("Dealer is betting...");
 			Thread.sleep(1000);
 			ciOfDealer = dealer.getConfidenceLevel(2);
+
+			//TESTING
+			System.out.println(dealer.getHand());
+			System.out.println(dealer.getHand().handValue());
+
+			//TESTING
+			System.out.println(ciOfDealer + " CONDIFENCE");
+
 			aiBet(ciOfDealer, casinoPot, dealer, 2);
 			casinoPot.Call(player1);
 			casinoPot.Call(player2);
@@ -244,6 +286,14 @@ public class pokertest{
 			System.out.println("Player 2 is betting...");
 			Thread.sleep(1000);
 			ciOfp2 = player2.getConfidenceLevel(2);
+
+			//TESTING
+			System.out.println(player2.getHand());
+			System.out.println(player2.getHand().handValue());
+
+			//TESTING
+			System.out.println(ciOfp2 + " CONDIFENCE");
+
 			aiBet(ciOfDealer, casinoPot, player2, 2);
 			casinoPot.Call(player1);
 			casinoPot.Call(dealer);
@@ -255,6 +305,14 @@ public class pokertest{
 			System.out.println("Player 3 is betting...");
 			Thread.sleep(1000);
 			ciOfp3 = player3.getConfidenceLevel(2);
+
+			//TESTING
+			System.out.println(player3.getHand());
+			System.out.println(player3.getHand().handValue());
+
+			//TESTING
+			System.out.println(ciOfp3 + " CONDIFENCE");
+
 			aiBet(ciOfDealer, casinoPot, player3, 2);
 			casinoPot.Call(player1);
 			casinoPot.Call(dealer);
