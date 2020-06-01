@@ -1,19 +1,26 @@
 import java.awt.*;
-import java.util.*;	
+import java.util.*;
 
-public class Bot extends Player{
-	private Hand h;
+public class Bot {
+	public Hand h;
 	private int money;
+	private Boolean isCurrentTurn;
+	private String name;
+
 
 	public Bot(String name, Hand h, Boolean isCurrentTurn){
-		super(name, h, isCurrentTurn);
+		this.name = name;
+		this.h = h;
+		this.isCurrentTurn = isCurrentTurn;
 	}
 
-	
+	public String getName(){
+		return name;
+	}
 	public Hand getHand(){
 		return h;
 	}
-	
+
 	public void printBotHand(DrawingPanel d, Graphics g){
 		h.printHand(d,g);
 	}
@@ -25,7 +32,15 @@ public class Bot extends Player{
 	public Boolean getCurrentTurn(){
 		return isCurrentTurn;
 	}
-		
+
+	public void changeMoney(int change){
+		this.money += change;
+	}
+
+	public int getMoney(){
+		return money;
+	}
+	
 	//bots course of action on swapping
 	public void decision(){
 		if (h.handValue() >= 5) {
@@ -55,5 +70,4 @@ public class Bot extends Player{
 			}
 		}
 	}
-
 }

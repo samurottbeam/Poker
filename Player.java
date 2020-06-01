@@ -3,7 +3,7 @@ import java.awt.*;
 
 public class Player{
 	private String name;
-	Hand h;
+	public Hand h;
 	private int money;
 	public Boolean isCurrentTurn;
 

@@ -54,7 +54,7 @@ public class pokertest{
 		g.setColor(Color.black);
 
 		g.drawString(s2, 0, 570);
-		dealer.printPlayerHand(dp,g);
+		dealer.printBotHand(dp,g);
 		if(winCon == 1){
 			g.drawString("Player wins.",7, 350);
 		}
@@ -100,18 +100,18 @@ public class pokertest{
 		refreshBoard(panel,g,person,dealer);
 		person.printPlayerHand(panel,g);
 		person.getHand().setHandValue(person.getHand().handValue());
-		Thread.sleep(5000);
+		Thread.sleep(2000);
 		System.out.println("Dealer's turn.");
 		person.setCurrentTurn(false);
 		dealer.setCurrentTurn(true);
 		refreshBoard(panel,g,person,dealer);
-		dealer.printPlayerHand(panel,g);
+		dealer.printBotHand(panel,g);
 		System.out.println("Dealer is choosing...");
-		Thread.sleep(5000);
+		Thread.sleep(3000);
 		dealer.decision();
 		System.out.println();
 		refreshBoard(panel,g,person,dealer);
-		dealer.printPlayerHand(panel,g);
+		dealer.printBotHand(panel,g);
 		dealer.getHand().setHandValue(dealer.getHand().handValue());
 		int winCond = person.getHand().versus(dealer.getHand());
 		winningScreen(panel,g,person,dealer,winCond);
