@@ -45,6 +45,8 @@ public class Hand{
 		deck.backIntoDeck(h.get(cardNum-1));
 		h.set(cardNum-1, deck.drawCard());
 	}
+
+
 	//how each hand is printed
 	public void printHand(DrawingPanel dp, Graphics g) throws IOException{		
 		for(int i = 2; i < 7; i++){	
@@ -209,7 +211,7 @@ public class Hand{
 			if(rank == "K" && suit == "\u2660"){
 				img = ImageIO.read(new File("KS.png"));
 			}
-			g.drawImage(img,100*(i-2), 600, 90, 150,null);
+			g.drawImage(img,100*(i-2) + 50, 600, 90, 150,null);
 			// g.drawString(num, 40+100*(i-2),595);
 			// g.drawRect(100*(i-2), 600, 90, 150);
 			// String cardstring = "" + rank +" " + suit;
@@ -224,6 +226,8 @@ public class Hand{
 	}
 	
 	public void printWinCon(DrawingPanel dp, Graphics g, int playerNum) throws IOException{
+
+
 		for(int i = 2; i < 7; i++){	
 			String num = "" + (i-1);
 			String rank = h.get(i-2).getRank();
@@ -385,7 +389,7 @@ public class Hand{
 			if(rank == "K" && suit == "\u2660"){
 				img = ImageIO.read(new File("KS.png"));
 			}
-			g.drawImage(img,100*(i-2), 25+170*playerNum, 90, 150,null);
+			g.drawImage(img,100*(i-2) + 50, 25+170*playerNum, 90, 150,null);
 			// g.setColor(Color.black);
 			// g.drawRect(100*(i-2), 25+170*playerNum, 90, 150);
 			// String cardstring = "" + rank +" " + suit;
@@ -410,6 +414,37 @@ public class Hand{
 
 	public void organizeHand(){
 		Collections.sort(h);
+	}
+
+	//returns the string of the Name of the combination in the poker hand
+	public String getCombo(){
+		if((int)this.handValue() == 9){
+			return "Straight Flush";
+		}
+		else if((int)this.handValue() == 8){
+			return "Four of a Kind";
+		}
+		else if((int)this.handValue() == 7){
+			return "Full House";
+		}
+		else if((int)this.handValue() == 6){
+			return "Flush";
+		}
+		else if((int)this.handValue() == 5){
+			return "Straight";
+		}
+		else if((int)this.handValue() == 4){
+			return "Triple";
+		}
+		else if((int)this.handValue() == 3){
+			return "Two Pairs";
+		}
+		else if((int)this.handValue() == 2){
+			return "One Pair";
+		}
+		else{
+			return "Absolute Garbage";
+		}
 	}
 
 	//returns double representing value of the hand: 1 for high card, 9 for straight flush
