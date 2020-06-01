@@ -4,11 +4,9 @@ import java.util.*;
 public class Bot extends Player{
 	private Hand h;
 	private int money;
-	private Boolean isCurrentTurn;
 
 	public Bot(String name, Hand h, Boolean isCurrentTurn){
-		super(name, h);
-		this.isCurrentTurn = isCurrentTurn;
+		super(name, h, isCurrentTurn);
 	}
 
 	
