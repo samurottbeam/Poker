@@ -1,7 +1,7 @@
 import java.awt.*;
 import java.util.*;
 public class Hand{
-	private ArrayList<Card> h = new ArrayList<Card>();
+	public ArrayList<Card> h = new ArrayList<Card>();
 	private Deck deck;
 	private double handValue;
 
@@ -57,6 +57,24 @@ public class Hand{
 			}
 			g.drawString(cardstring, 100*(i-1)-45,615);
 		}
+	}
+	
+	public void printWinCon(DrawingPanel dp, Graphics g){
+		for(int i = 2; i < 7; i++){	
+			String num = "" + (i-1);
+			String rank = h.get(i-2).getRank();
+			String suit = h.get(i-2).getSuit();
+			g.setColor(Color.black);
+			g.drawRect(100*(i-2), 25, 90, 150);
+			String cardstring = "" + rank +" " + suit;
+			if(suit.equals("♦") || suit.equals("♥")){
+				g.setColor(Color.red);
+			}
+			else{
+				g.setColor(Color.black);
+			}
+			g.drawString(cardstring, 100*(i-1)-45,40);
+		}	
 	}
 
 	public String toString(){
@@ -128,6 +146,14 @@ public class Hand{
 			}
 		}
 		return true;
+	}
+	
+	public void setHandValue(double value){
+		this.handValue = value;
+	}
+
+	public double getHandValue(){
+		return handValue;
 	}
 
 	public boolean isFlush(){
