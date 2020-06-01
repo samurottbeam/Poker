@@ -11,6 +11,7 @@ public class Player implements Comparable<Player>{
 	private int money;
 	public int playerBet;
 	public Boolean isFolded;
+	public int netChange;
 
 
 	//default constructor function set at $100000
@@ -20,6 +21,7 @@ public class Player implements Comparable<Player>{
 		money = 100000;
 		playerBet = 0;
 		isFolded = false;
+		netChange = 0;
 	}
 
 	//constructor if amount of money to start with is not $100000
@@ -34,7 +36,9 @@ public class Player implements Comparable<Player>{
 		h.printHand(d,g);
 	}
 
-
+	public int getChange(){
+		return netChange;
+	}
 	//return functions
 
 	public String getName(){
@@ -54,6 +58,10 @@ public class Player implements Comparable<Player>{
 		isFolded = true;
 	}
 
+	public void unFold(){
+		isFolded = false;
+	}
+
 	public Boolean returnIsFolded(){
 		return isFolded;
 	}
@@ -71,7 +79,11 @@ public class Player implements Comparable<Player>{
 	} 
 
 	public void changeMoney(int change){
+		if(isFolded){
+			return;
+		}
 		this.money += change;
+		netChange += change;
 	}
 
 	public int compareTo(Player other){
@@ -80,10 +92,10 @@ public class Player implements Comparable<Player>{
 		}
 		else{
 			if(this.getHand().handValue() > other.getHand().handValue()){
-				return 1;
+				return -1;
 			}
 			else{
-				return -1;
+				return 1;
 			}
 		}
 	}
