@@ -5,7 +5,6 @@ public class Bot extends Player{
 
 	public Bot(String name, Hand h, Boolean isCurrentTurn){
 		super(name, h, isCurrentTurn);
-		System.out.println(h);
 	}
 
 	
@@ -19,7 +18,6 @@ public class Bot extends Player{
 			return;
 		} else if (h.isAlmostFlush().size() != 0){
 			//swap other 2 cards
-			System.out.println(h.isAlmostFlush());
 			for (int i = 0; i < h.isAlmostFlush().size(); i++) {
 				h.swapCards(h.isAlmostFlush().get(i) + 1);
 			}
@@ -28,7 +26,6 @@ public class Bot extends Player{
 			h.swapCards(h.isAlmostStraight() + 1);
 		} else if (h.moreThanTriple() > -1){
 			//swap card at h.moreThanTriple()
-			System.out.println(h.moreThanTriple());
 			h.swapCards(h.moreThanTriple() + 1);
 		} else if (h.moreThanOnePair().size() != 0){
 			//swap out other three
@@ -43,4 +40,23 @@ public class Bot extends Player{
 		}
 	}
 
+	//returns confidence level of AI in their hand
+	public int getConfidenceLevel(int round){
+		//confidence high (raise), mid (call), low (fold)
+		if (round == 1){
+			if (h.getHandValue() >= 5 || h.isAlmostFlush().size() != 0 || h.isAlmostStraight() > -1 || h.moreThanTriple() > -1) {
+				return 3;
+			} else {
+				return 2;
+			}
+		} else {
+			if (h.getHandValue() >= 5) {
+				return 3;
+			} else if (h.getHandValue() >= 3){
+				return 2;
+			} else {
+				return 1;
+			}
+		}	
+	}
 }
