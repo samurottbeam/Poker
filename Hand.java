@@ -67,7 +67,7 @@ public class Hand{
 			g.setColor(Color.black);
 			g.drawRect(100*(i-2), 25, 90, 150);
 			String cardstring = "" + rank +" " + suit;
-			if(suit.equals("♦") || suit.equals("♥")){
+			if(suit.equals("\u2666") || suit.equals("\u2665")){
 				g.setColor(Color.red);
 			}
 			else{
