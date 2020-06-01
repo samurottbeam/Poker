@@ -4,14 +4,28 @@ import java.util.*;
 public class Bot extends Player{
 	private Hand h;
 	private int money;
+	private Boolean isCurrentTurn;
 
-	public Bot(String name, Hand h){
+	public Bot(String name, Hand h, Boolean isCurrentTurn){
 		super(name, h);
+		this.isCurrentTurn = isCurrentTurn;
 	}
 
 	
 	public Hand getHand(){
 		return h;
+	}
+	
+	public void printBotHand(DrawingPanel d, Graphics g){
+		h.printHand(d,g);
+	}
+
+	public void setCurrentTurn(Boolean b){
+		isCurrentTurn = b;
+	}
+
+	public Boolean getCurrentTurn(){
+		return isCurrentTurn;
 	}
 		
 	//bots course of action on swapping
